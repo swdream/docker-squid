@@ -8,8 +8,7 @@ ENV SQUID_VERSION=3 \
     SQUID_USER=proxy
 
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y squid${SQUID_VERSION} apache2-utils \
- && mv ${SQUID_CONFIG_DIR}/squid.conf ${SQUID_CONFIG_DIR}/squid.conf.dist
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y squid${SQUID_VERSION} apache2-utils
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
