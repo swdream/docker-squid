@@ -50,4 +50,6 @@ fi
 
 # default behaviour is to launch squid
 htpasswd -bc /usr/etc/passwd "${SQUID_USERNAME}" "${SQUID_PASSWORD}"
+echo "Done"
+echo "Squid Start"
 exec squid${SQUID_VERSION} -N $*
