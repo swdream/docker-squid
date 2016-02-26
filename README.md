@@ -1,4 +1,4 @@
-(Thanks sameersbn)
+(Thanks Rob Haswell)
 
 ## Quickstart
 
