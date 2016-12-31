@@ -1,12 +1,11 @@
 #!/bin/bash
 set -e
 
-SQUID_VERSION=3
-SQUID_CACHE_DIR=/var/spool/squid${SQUID_VERSION}
-SQUID_LOG_DIR=/var/log/squid${SQUID_VERSION}
+SQUID_CACHE_DIR=/var/spool/squid
+SQUID_LOG_DIR=/var/log/squid
 SQUID_DIR=/squid
-SQUID_CONFIG_DIR=/etc/squid${SQUID_VERSION}
-SQUID_USER=${USER:-proxy}
+SQUID_CONFIG_DIR=/etc/squid
+SQUID_USER=${USER:-squid}
     
 if [ -z "`ls ${SQUID_DIR} --hide='lost+found'`" ] || [ -z "`ls ${SQUID_CONFIG_DIR}`" ] 
 then
