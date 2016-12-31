@@ -1,14 +1,12 @@
-FROM babim/debianbase
+FROM babim/alpinebase
 
-ENV SQUID_VERSION=3 \
-    SQUID_CACHE_DIR=/var/spool/squid3 \
-    SQUID_LOG_DIR=/var/log/squid3 \
+ENV SQUID_CACHE_DIR=/var/spool/squid \
+    SQUID_LOG_DIR=/var/log/squid \
     SQUID_DIR=/squid \
-    SQUID_CONFIG_DIR=/etc/squid3 \
+    SQUID_CONFIG_DIR=/etc/squid \
     SQUID_USER=proxy
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y squid${SQUID_VERSION} \
+RUN apk add --no-cache squid bash \
  && mv ${SQUID_CONFIG_DIR}/squid.conf ${SQUID_CONFIG_DIR}/squid.conf.dist
 
 COPY squid.conf ${SQUID_CONFIG_DIR}/squid.conf
@@ -23,15 +21,6 @@ RUN [ -d ${SQUID_CACHE_DIR} ] || mkdir -p ${SQUID_CACHE_DIR} && \
     mv ${SQUID_LOG_DIR} ${SQUID_DIR}/log && ln -s ${SQUID_DIR}/log ${SQUID_LOG_DIR} && \
     mv ${SQUID_CONFIG_DIR} ${SQUID_DIR}/config && ln -s ${SQUID_DIR}/config ${SQUID_CONFIG_DIR} && \
     mkdir /etc-start && cp -R ${SQUID_DIR}/* /etc-start
-
-# clean
-RUN apt-get clean && \
-    apt-get autoclean && \
-    apt-get autoremove -y --purge && \
-    rm -rf /build && \
-    rm -rf /tmp/* /var/tmp/* && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -f /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 EXPOSE 3128/tcp
 #VOLUME ["${SQUID_CACHE_DIR}", "${SQUID_LOG_DIR}", "${SQUID_CONFIG_DIR}"]
