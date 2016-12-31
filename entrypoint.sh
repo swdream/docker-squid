@@ -1,12 +1,11 @@
 #!/bin/bash
 set -e
 
-SQUID_VERSION=3
-SQUID_CACHE_DIR=/var/spool/squid${SQUID_VERSION}
-SQUID_LOG_DIR=/var/log/squid${SQUID_VERSION}
+SQUID_CACHE_DIR=/var/spool/squid
+SQUID_LOG_DIR=/var/log/squid
 SQUID_DIR=/squid
-SQUID_CONFIG_DIR=/etc/squid${SQUID_VERSION}
-SQUID_USER=${USER:-proxy}
+SQUID_CONFIG_DIR=/etc/squid
+SQUID_USER=${USER:-squid}
 SQUID_USERNAME=${USERNAME:-foo}
 SQUID_PASSWORD=${PASSWORD:-bar}
     
@@ -43,7 +42,7 @@ apply_backward_compatibility_fixes
 if [[ ${1:0:1} = '-' ]]; then
   EXTRA_ARGS="$@"
   set --
-elif [[ ${1} == squid${SQUID_VERSION} || ${1} == $(which squid${SQUID_VERSION}) ]]; then
+elif [[ ${1} == squid || ${1} == $(which squid) ]]; then
   EXTRA_ARGS="${@:2}"
   set --
 fi
@@ -52,4 +51,4 @@ fi
 htpasswd -bc /usr/etc/passwd "${SQUID_USERNAME}" "${SQUID_PASSWORD}"
 echo "Done"
 echo "Squid Start"
-exec squid${SQUID_VERSION} -N $*
+exec squid -N $*
