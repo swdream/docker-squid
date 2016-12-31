@@ -4,7 +4,7 @@ ENV SQUID_CACHE_DIR=/var/spool/squid \
     SQUID_LOG_DIR=/var/log/squid \
     SQUID_DIR=/squid \
     SQUID_CONFIG_DIR=/etc/squid \
-    SQUID_USER=proxy
+    SQUID_USER=squid
 
 RUN apk add --no-cache squid bash \
  && mv ${SQUID_CONFIG_DIR}/squid.conf ${SQUID_CONFIG_DIR}/squid.conf.dist
