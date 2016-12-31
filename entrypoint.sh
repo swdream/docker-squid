@@ -40,7 +40,7 @@ apply_backward_compatibility_fixes
 if [[ ${1:0:1} = '-' ]]; then
   EXTRA_ARGS="$@"
   set --
-elif [[ ${1} == squid${SQUID_VERSION} || ${1} == $(which squid${SQUID_VERSION}) ]]; then
+elif [[ ${1} == squid || ${1} == $(which squid) ]]; then
   EXTRA_ARGS="${@:2}"
   set --
 fi
@@ -49,10 +49,10 @@ fi
 if [[ -z ${1} ]]; then
   if [[ ! -d ${SQUID_CACHE_DIR}/00 ]]; then
     echo "Initializing cache..."
-    $(which squid${SQUID_VERSION}) -N -f ${SQUID_CONFIG_DIR}/squid.conf -z
+    $(which squid) -N -f ${SQUID_CONFIG_DIR}/squid.conf -z
   fi
   echo "Starting squid3..."
-  exec $(which squid${SQUID_VERSION}) -f ${SQUID_CONFIG_DIR}/squid.conf -NYCd 1 ${EXTRA_ARGS}
+  exec $(which squid) -f ${SQUID_CONFIG_DIR}/squid.conf -NYCd 1 ${EXTRA_ARGS}
 else
   exec "$@"
 fi
