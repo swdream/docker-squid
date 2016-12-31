@@ -7,8 +7,8 @@ SQUID_LOG_DIR=/var/log/squid${SQUID_VERSION}
 SQUID_DIR=/squid
 SQUID_CONFIG_DIR=/etc/squid${SQUID_VERSION}
 SQUID_USER=${USER:-proxy}
-SQUID_USERNAME=${USERNAME:-user}
-SQUID_PASSWORD=${PASSWORD:-password}
+SQUID_USERNAME=${USERNAME:-foo}
+SQUID_PASSWORD=${PASSWORD:-bar}
     
 if [ -z "`ls ${SQUID_DIR} --hide='lost+found'`" ] || [ -z "`ls ${SQUID_CONFIG_DIR}`" ] 
 then
