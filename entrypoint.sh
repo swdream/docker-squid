@@ -7,7 +7,7 @@ SQUID_DIR=/squid
 SQUID_CONFIG_DIR=/etc/squid
 SQUID_USER=${USER:-squid}
     
-if [ -z "`ls ${SQUID_DIR} --hide='lost+found'`" ] || [ -z "`ls ${SQUID_CONFIG_DIR}`" ] 
+if [ -z "`ls ${SQUID_DIR}`" ] || [ -z "`ls ${SQUID_CONFIG_DIR}`" ] 
 then
 	cp -R /etc-start/* ${SQUID_DIR}
 fi
