@@ -6,7 +6,7 @@ ENV SQUID_CACHE_DIR=/var/spool/squid \
     SQUID_CONFIG_DIR=/etc/squid \
     SQUID_USER=squid
 
-RUN apk add --no-cache squid bash \
+RUN apk add --no-cache squid bash apache2-utils \
  && mv ${SQUID_CONFIG_DIR}/squid.conf ${SQUID_CONFIG_DIR}/squid.conf.dist
 
 COPY squid.conf ${SQUID_CONFIG_DIR}/squid.conf
