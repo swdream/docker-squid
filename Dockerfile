@@ -18,11 +18,11 @@ RUN [ -d ${SQUID_CACHE_DIR} ] || mkdir -p ${SQUID_CACHE_DIR} && \
     [ -d /usr/etc ] || mkdir -p /usr/etc && \
     mv ${SQUID_CACHE_DIR} ${SQUID_DIR}/cache && ln -s ${SQUID_DIR}/cache ${SQUID_CACHE_DIR} && \
     mv ${SQUID_LOG_DIR} ${SQUID_DIR}/log && ln -s ${SQUID_DIR}/log ${SQUID_LOG_DIR} && \
-    mv ${SQUID_CONFIG_DIR} ${SQUID_DIR}/config && ln -s ${SQUID_DIR}/config ${SQUID_CONFIG_DIR} && \
-    mkdir /etc-start && cp -R ${SQUID_DIR}/* /etc-start
+    mv ${SQUID_CONFIG_DIR} ${SQUID_DIR}/config && ln -s ${SQUID_DIR}/config ${SQUID_CONFIG_DIR}    
     
 RUN sed -i 's@#\tauth_param basic program /usr/lib/squid/basic_ncsa_auth /usr/etc/passwd@auth_param basic program /usr/lib/squid/basic_ncsa_auth /usr/etc/passwd\nacl ncsa_users proxy_auth REQUIRED@' /etc/squid/squid.conf
 RUN sed -i 's@^http_access allow localhost$@\0\nhttp_access allow ncsa_users@' /etc/squid/squid.conf
+RUN mkdir /etc-start && cp -R ${SQUID_DIR}/* /etc-start
     
 RUN mkdir /usr/etc
 
