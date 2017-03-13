@@ -9,7 +9,7 @@ SQUID_USER=${USER:-squid}
 SQUID_USERNAME=${USERNAME:-foo}
 SQUID_PASSWORD=${PASSWORD:-bar}
     
-if [ -z "`ls ${SQUID_DIR} --hide='lost+found'`" ] 
+if [ -z "`ls ${SQUID_DIR}`" ] 
 then
 	cp -R /etc-start/* ${SQUID_DIR}
 fi
