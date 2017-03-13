@@ -6,6 +6,8 @@ SQUID_LOG_DIR=/var/log/squid
 SQUID_DIR=/squid
 SQUID_CONFIG_DIR=/etc/squid
 SQUID_USER=${USER:-squid}
+SQUID_USERNAME=${USERNAME:-foo}
+SQUID_PASSWORD=${PASSWORD:-bar}
     
 if [ -z "`ls ${SQUID_DIR} --hide='lost+found'`" ] || [ -z "`ls ${SQUID_CONFIG_DIR}`" ] 
 then
@@ -46,13 +48,7 @@ elif [[ ${1} == squid || ${1} == $(which squid) ]]; then
 fi
 
 # default behaviour is to launch squid
-if [[ -z ${1} ]]; then
-  if [[ ! -d ${SQUID_CACHE_DIR}/00 ]]; then
-    echo "Initializing cache..."
-    $(which squid) -N -f ${SQUID_CONFIG_DIR}/squid.conf -z
-  fi
-  echo "Starting squid3..."
-  exec $(which squid) -f ${SQUID_CONFIG_DIR}/squid.conf -NYCd 1 ${EXTRA_ARGS}
-else
-  exec "$@"
-fi
+htpasswd -bc /usr/etc/passwd "${SQUID_USERNAME}" "${SQUID_PASSWORD}"
+echo "Done"
+echo "Squid Start"
+exec squid -N $*
