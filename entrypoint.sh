@@ -14,7 +14,6 @@ fi
 
 create_log_dir() {
   [[ -d ${SQUID_LOG_DIR} ]] || mkdir -p ${SQUID_LOG_DIR}
-  rm -rf ${SQUID_CACHE_DIR}/*
   chmod -R 755 ${SQUID_LOG_DIR}
   chown -R ${SQUID_USER}:${SQUID_USER} ${SQUID_DIR}/log
   chown -R ${SQUID_USER}:${SQUID_USER} ${SQUID_LOG_DIR}
@@ -22,6 +21,7 @@ create_log_dir() {
 
 create_cache_dir() {
   [[ -d ${SQUID_CACHE_DIR} ]] || mkdir -p ${SQUID_CACHE_DIR}
+  rm -rf ${SQUID_CACHE_DIR}/*
   chown -R ${SQUID_USER}:${SQUID_USER} ${SQUID_DIR}/cache
   chown -R ${SQUID_USER}:${SQUID_USER} ${SQUID_CACHE_DIR}
 }
